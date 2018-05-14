@@ -121,6 +121,7 @@
 	var/list/load = list() //Current crates inside
 	var/maxcap = 3 //how many crates it can hold
 	var/list/acceptable = list(/obj/storage/crate,
+	/obj/storage/secure/crate,
 	/obj/machinery/artifact,
 	/obj/artifact,
 	/obj/mopbucket,
