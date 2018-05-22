@@ -3,7 +3,6 @@
 
 	icon = 'icons/obj/atmospherics/atmos_depot.dmi'
 	icon_state = "atmosgen:0"
-	layer = 3.05
 	density = 1
 	mats = 12
 	var/on = 0
