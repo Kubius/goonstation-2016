@@ -13,6 +13,7 @@
 	var/sound_grump = 'sound/machines/buzz-two.ogg'
 	var/O2target = 20
 	var/N2target = 60
+	var/baseCatalystAmount = 1
 	desc = "An advanced atmospherics device capable of creating and dispersing standard atmosphere on-site."
 
 	volume = 750
@@ -43,6 +44,7 @@
 		if (air_contents.oxygen < O2target || air_contents.nitrogen < N2target)
 			var/catalyst_cost = 1 - (air_contents.oxygen / O2target)
 			//evaluates the difference between current internal O2 level and O2 level it will have when filled, and uses that to extrapolate a cost in catalyst
+			//to tune the cost of pressurization, change var baseCatalystAmount; "1" represents one full refill of the internal canister, currently ~200kPa
 
 			if (atmos_catalyst < catalyst_cost)
 				on = 0
@@ -100,7 +102,7 @@
 				break
 			if (user.loc != staystill) break
 			if (P.type != itemtype) continue
-			var/amount = 1
+			var/amount = baseCatalystAmount
 			/* Currently irrelevant due to only accepting one material
 			if (istype(P,/obj/item/))
 				amount = 1
@@ -119,7 +121,15 @@
 		if (atmos_catalyst >= max_atmos_catalyst)
 			boutput(user, "<span style=\"color:red\">[src] can't accept any more catalyst.</span>")
 		else
-			atmos_catalyst += 1
+			var/amount = baseCatalystAmount
+			/* Currently irrelevant due to only accepting one material
+			if (istype(P,/obj/item/))
+				amount = 1
+			else if (istype(P,/obj/item/))
+				amount = 1
+			else if (istype(P,/obj/item/))
+				amount = 1 */
+			atmos_catalyst += amount
 			boutput(user, "<span style=\"color:blue\">[src] processes [W] into atmospheric catalyst.</span>")
 			user.u_equip(W)
 			W.dropped()
