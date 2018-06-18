@@ -258,6 +258,19 @@
 		if("V")
 			new_string = "F"
 			used = 1
+			
+		if("b")
+			if(R.next_char == "o" && R.next_next_char == "r" && R.next_next_next_char == "k")
+				new_string = "bork"
+				used = 4
+
+		if("B")
+			if(R.next_char == "o" && R.next_next_char == "r" && R.next_next_next_char == "k")
+				new_string = "Bork"
+				used = 4
+			if(R.next_char == "O" && R.next_next_char == "R" && R.next_next_next_char == "K")
+				new_string = "BORK"
+				used = 4
 
 		if("t")
 			if(R.next_char == "i" && R.next_next_char == "o" && R.next_next_next_char == "n")
