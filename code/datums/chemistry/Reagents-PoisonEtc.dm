@@ -191,10 +191,10 @@ datum
 
 				if (!M) M = holder.my_atom
 				if (src.volume <= src.depletion_rate)
-					M.take_toxin_damage(damage_counter * rand(2,4))
+					M.take_toxin_damage(damage_counter + rand(2,3))
 					M.updatehealth()
 				else
-					damage_counter++
+					damage_counter += rand(2,4) // RNG rolls moved to accumulation proc for consistency
 				..(M)
 
 		harmful/coniine
