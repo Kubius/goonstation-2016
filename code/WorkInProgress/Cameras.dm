@@ -26,6 +26,7 @@
 	var/pictures_left = 10
 	var/pictures_max = 30
 	var/can_use = 1
+	var/takes_voodoo_pics = 0
 
 	large
 		pictures_left = 30
@@ -57,6 +58,10 @@
 			..()
 		return
 
+/obj/item/camera_test/voodoo //kubius: voodoo cam subtyped for cleanliness
+	desc = "There's some sort of faint writing etched into the casing."
+	takes_voodoo_pics = 1
+
 /obj/item/camera_film
 	name = "film cartridge"
 	desc = "A replacement film cartridge for an instant camera."
@@ -85,6 +90,26 @@
 	w_class = 1.0
 	var/image/fullImage
 	var/icon/fullIcon
+
+/obj/item/photo/voodoo //kubius: voodoo "doll" photograph
+	var/mob/cursed_dude = null //set at photo creation
+	var/enchant_power = 66 //how long the photo's magic lasts, negative values make it infinite
+	
+	//farting is handled in human.dm
+
+	attackby(obj/item/W as obj, mob/user as mob)
+		if (enchant_power && cursed_dude && istype(cursed_dude, /mob))
+			cursed_dude.attackby(W,user)
+			if(enchant_power > 0) enchant_power--
+		else
+			..()
+		return
+
+	throw_begin(atom/target)
+		if (enchant_power && cursed_dude && istype(cursed_dude, /mob))
+			cursed_dude.throw_at(get_edge_cheap(src, get_dir(src, target)), 20, 1)
+			if(enchant_power > 0) enchant_power--
+		return ..(target)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /*/obj/item/camera_test*/
@@ -123,6 +148,7 @@
 
 	var/mob_title = null
 	var/mob_detail = null
+	var/mob/deafnote = null //kubius: voodoo photo mob tracking, takes the first mob in an image
 
 	var/item_title = null
 	var/item_detail = null
@@ -141,6 +167,8 @@
 			qdel(Y)
 
 			if(!mob_title)
+				if(src.takes_voodoo_pics)
+					deafnote = A
 				mob_title = "[A]"
 			else
 				mob_title += " and [A]"
@@ -200,7 +228,12 @@
 			finished_title = "photo of[item_title]"
 			finished_detail = "You can see [item_detail]"
 
-	var/obj/item/photo/P = new/obj/item/photo( get_turf(src) )
+	var/obj/item/photo/P
+	if(src.takes_voodoo_pics)
+		P = new/obj/item/photo/voodoo( get_turf(src) )
+		P:cursed_dude = deafnote //kubius: using runtime eval because non-voodoo photos don't have a cursed_dude var
+	else
+		P = new/obj/item/photo( get_turf(src) )
 
 	P.fullImage = photo//image(photo, "")
 	P.fullIcon = photo_icon
