@@ -1833,6 +1833,23 @@
 								sims.affectMotive("fun", 4)
 							fart_on_other = 1
 							break
+						for (var/obj/item/photo/voodoo/V in src.loc) //kubius: voodoo photo farty party
+							var/mob/M = V.cursed_dude
+							if (!M.lying)
+								continue
+							spawn(2) //delayed because telefart
+								playsound(get_turf(M), src.sound_fart, 20, 0, 0, src.get_age_pitch())
+								switch(rand(1, 7))
+									if (1) M.visible_message("<b>[M]</b> suddenly radiates an unwelcoming odor.</span>")
+									if (2) M.visible_message("<b>[M]</b> is visited by ethereal incontinence.</span>")
+									if (3) M.visible_message("<b>[M]</b> experiences paranormal gastrointestinal phenomena.</span>")
+									if (4) M.visible_message("<b>[M]</b> involuntarily telecommutes to the farty party.</span>")
+									if (5) M.visible_message("<b>[M]</b> is swept over by a mysterious draft.</span>")
+									if (6) M.visible_message("<b>[M]</b> abruptly emits an odor of cheese.</span>")
+									if (7) M.visible_message("<b>[M]</b> is set upon by extradimensional flatulence.</span>")
+							if (sims)
+								sims.affectMotive("fun", 4)
+							//break deliberately omitted
 						for (var/obj/item/storage/bible/B in src.loc)
 							B.suicide(src)
 							fart_on_other = 1
