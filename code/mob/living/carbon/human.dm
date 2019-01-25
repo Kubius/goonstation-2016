@@ -1835,7 +1835,7 @@
 							break
 						for (var/obj/item/photo/voodoo/V in src.loc) //kubius: voodoo photo farty party
 							var/mob/M = V.cursed_dude
-							if (!M.lying)
+							if (!M || !M.lying)
 								continue
 							spawn(2) //delayed because telefart
 								playsound(get_turf(M), src.sound_fart, 20, 0, 0, src.get_age_pitch())
