@@ -57,14 +57,17 @@ RCD
 	var/door_name = null
 	var/door_access = 0
 	var/door_access_name_cache = null
-	var/door_type_name_cache = null
 	var/static/list/access_names = list()
+
+/* //kubius rcd: legacy vars commented out
+	var/door_type_name_cache = null
 	var/door_type = null
 	var/static/list/door_types = list("Command" = /obj/machinery/door/airlock/command, "Security" = /obj/machinery/door/airlock/security, \
 "Engineering" = /obj/machinery/door/airlock/engineering, "Medical" = /obj/machinery/door/airlock/medical, \
 "Glass" = /obj/machinery/door/airlock/glass, "Glass (Command)" = /obj/machinery/door/airlock/glass/command, \
 "Glass (Engineering)" = /obj/machinery/door/airlock/glass/engineering, "Glass (Medical)" = /obj/machinery/door/airlock/glass/medical, \
 "Classic" = /obj/machinery/door/airlock/classic, "Maintenance" = /obj/machinery/door/airlock/maintenance, "External" = /obj/machinery/door/airlock/external)
+*/
 
 /obj/item/rcd_fake
 	name = "rapid-construction-device (RCD)"
@@ -164,6 +167,64 @@ RCD
 		src.spark_system.start()
 		return
 
+//kubius rcd: upgraded door creation procs, map_setting compliant
+/obj/item/rcd/proc/create_door(var/turf/A, mob/user as mob)
+	boutput(user, "Building Airlock ([matter_create_door])...")
+	playsound(src.loc, "sound/machines/click.ogg", 50, 1)
+	if(do_after(user, 50))
+		if (rcd_ammocheck(user, matter_create_door))
+			spark_system.set_up(5, 0, src)
+			src.spark_system.start()
+			var/interim = fetchAirlock()
+			var/obj/machinery/door/airlock/T = new interim(A)
+			logTheThing("station", user, null, "builds an Airlock using the RCD in [user.loc.loc] ([showCoords(user.x, user.y, user.z)])")
+			rcd_ammoconsume(user, matter_create_door)
+			if(map_setting == "COG2") T.dir = user.dir
+			T.autoclose = 1
+			playsound(src.loc, "sound/items/Deconstruct.ogg", 50, 1)
+			playsound(src.loc, "sound/effects/sparks2.ogg", 50, 1)
+
+/obj/item/rcd/construction/create_door(var/turf/A, mob/user as mob)
+	var/turf/L = get_turf(user)
+	var/set_data = 0
+	if (door_name)
+		if (alert("Use saved data?",,"Yes","No") == "No")
+			set_data = 1
+	else
+		set_data = 1
+	if (set_data)
+		door_name = copytext(adminscrub(input("Door name", "RCD", door_name) as text), 1, 512)
+		if (!access_names.len)
+			for (var/access in get_all_accesses())
+				var/access_name = get_access_desc(access)
+				access_names[access_name] = access
+		door_access_name_cache = input("Required access", "RCD", door_access_name_cache) in access_names
+		door_access = access_names[door_access_name_cache]
+
+	if (user.loc != L)
+		boutput(user, "<span style=\"color:red\">Stand still you oaf.</span>")
+		return
+
+	var/lockstyle = alert("Select airlock variant","RCD","Standard","Glass","Alternate")
+	boutput(user, "Building Airlock ([matter_create_door])...")
+	playsound(src.loc, "sound/machines/click.ogg", 50, 1)
+	if(do_after(user, 50))
+		if (rcd_ammocheck(user, matter_create_door))
+			spark_system.set_up(5, 0, src)
+			src.spark_system.start()
+			var/interim = fetchAirlock(door_access,lockstyle)
+			var/obj/machinery/door/airlock/T = new interim(A)
+			logTheThing("station", user, null, "builds an Airlock ([T], name: [door_name], access: [door_access]) using the RCD in [user.loc.loc] ([showCoords(user.x, user.y, user.z)])")
+			rcd_ammoconsume(user, matter_create_door)
+			if(map_setting == "COG2") T.dir = user.dir
+			T.autoclose = 1
+			T.name = door_name
+			T.req_access = list(door_access)
+			T.req_access_txt = "[door_access]"
+			playsound(src.loc, "sound/items/Deconstruct.ogg", 50, 1)
+			playsound(src.loc, "sound/effects/sparks2.ogg", 50, 1)
+
+/* //legacy door creation procs
 /obj/item/rcd/proc/create_door(var/turf/A, mob/user as mob)
 	boutput(user, "Building Airlock ([matter_create_door])...")
 	playsound(src.loc, "sound/machines/click.ogg", 50, 1)
@@ -216,6 +277,8 @@ RCD
 			T.req_access_txt = "[door_access]"
 			playsound(src.loc, "sound/items/Deconstruct.ogg", 50, 1)
 			playsound(src.loc, "sound/effects/sparks2.ogg", 50, 1)
+*/
+
 
 /obj/item/rcd/construction/afterattack(atom/A, mob/user as mob)
 	..()
