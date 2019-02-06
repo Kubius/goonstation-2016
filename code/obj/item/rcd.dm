@@ -58,10 +58,10 @@ RCD
 	var/door_access = 0
 	var/door_access_name_cache = null
 	var/static/list/access_names = list()
-
+	var/door_type = null
 /* //kubius rcd: legacy vars commented out
 	var/door_type_name_cache = null
-	var/door_type = null
+
 	var/static/list/door_types = list("Command" = /obj/machinery/door/airlock/command, "Security" = /obj/machinery/door/airlock/security, \
 "Engineering" = /obj/machinery/door/airlock/engineering, "Medical" = /obj/machinery/door/airlock/medical, \
 "Glass" = /obj/machinery/door/airlock/glass, "Glass (Command)" = /obj/machinery/door/airlock/glass/command, \
@@ -200,19 +200,19 @@ RCD
 				access_names[access_name] = access
 		door_access_name_cache = input("Required access", "RCD", door_access_name_cache) in access_names
 		door_access = access_names[door_access_name_cache]
+		door_type = alert("Select airlock variant","RCD","Standard","Glass","Alternate")
 
 	if (user.loc != L)
 		boutput(user, "<span style=\"color:red\">Stand still you oaf.</span>")
 		return
-
-	var/lockstyle = alert("Select airlock variant","RCD","Standard","Glass","Alternate")
+	
 	boutput(user, "Building Airlock ([matter_create_door])...")
 	playsound(src.loc, "sound/machines/click.ogg", 50, 1)
 	if(do_after(user, 50))
 		if (rcd_ammocheck(user, matter_create_door))
 			spark_system.set_up(5, 0, src)
 			src.spark_system.start()
-			var/interim = fetchAirlock(door_access,lockstyle)
+			var/interim = fetchAirlock(door_access,door_type)
 			var/obj/machinery/door/airlock/T = new interim(A)
 			logTheThing("station", user, null, "builds an Airlock ([T], name: [door_name], access: [door_access]) using the RCD in [user.loc.loc] ([showCoords(user.x, user.y, user.z)])")
 			rcd_ammoconsume(user, matter_create_door)
