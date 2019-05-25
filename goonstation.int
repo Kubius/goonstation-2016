@@ -6,7 +6,7 @@ DIR: code code\chui\example code\datums\buildmodes code\datums\buildmodes\advent
 AUTO_FILE_DIR: OFF
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 512.1463
-WINDOW: code\obj\mining.dm;maps\orpheus_axiom.dmm;code\obj\decal.dm
+WINDOW: code\obj\mining.dm;maps\orpheus_axiom.dmm
 FILE: maps\orpheus_axiom.dmm
 */
 // END_INTERNALS
