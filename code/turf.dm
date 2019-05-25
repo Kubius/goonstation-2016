@@ -48,6 +48,8 @@ var/global/client/ff_debugger = null
 	var/pathable = 1
 
 	var/image/camera_image = null
+	var/turf/vistarget = null	// target turf for projecting its contents elsewhere 
+	var/turf/warptarget = null // target turf for teleporting its contents elsewhere
 
 	onMaterialChanged()
 		..()
@@ -89,6 +91,36 @@ var/global/client/ff_debugger = null
 		F["[path].pixel_y"] >> pixel_y
 		return DESERIALIZE_OK
 
+	Entered(var/atom/movable/A)
+		if(warptarget)
+			if (istype(A, /obj/overlay))
+				return
+			A.set_loc(warptarget)
+		updateVis()
+		
+	Exited(var/atom/movable/A)
+		updateVis()
+	
+	proc/updateVis() // locates all appropriate objects on this turf, and pushes them to the vis_contents of the target
+		if(vistarget)
+			vistarget.overlays.Cut()
+			vistarget.vis_contents = list()
+			for(var/atom/A in src.contents)
+				if (istype(A, (/obj/overlay)))
+					continue
+				if (istype(A, (/mob/dead)))
+					continue
+				if (istype(A, (/mob/living/intangible)))
+					continue
+				vistarget.vis_contents += A
+/* // this might work 
+	proc/updateVis() // locates all appropriate objects on this turf, and pushes them to the vis_contents of the target
+		if(vistarget)
+			vistarget.contents = list()
+			vistarget.vis_contents = list()
+			for(var/atom/A in src.contents)
+				vistarget.vis_contents += A
+*/
 /obj/overlay/tile_effect
 	name = ""
 	anchored = 1
@@ -199,7 +231,7 @@ var/global/client/ff_debugger = null
 	icon = 'ocean.dmi'
 	name = "seafloor"
 	water = 138771
-	temperature = T0C + 2 // average ocean temp on Earth is roughly 1-4 °C
+	temperature = T0C + 2 // average ocean temp on Earth is roughly 1-4 Â°C
 
 	New()
 		..()
@@ -1884,3 +1916,4 @@ var/global/client/ff_debugger = null
 
 		else
 			return ..()
+

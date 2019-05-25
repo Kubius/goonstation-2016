@@ -1109,6 +1109,7 @@ var/datum/preMapLoad/preMapLoad = new
 #include "code\WorkInProgress\StationMap.dm"
 #include "code\WorkInProgress\TempEngine.dm"
 #include "code\WorkInProgress\tug.dm"
+#include "code\WorkInProgress\warcrimes.dm"
 #include "code\WorkInProgress\WiresStuff.dm"
 #include "code\WorkInProgress\wizardset.dm"
 #include "code\WorkInProgress\antimatter\fuel.dm"

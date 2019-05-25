@@ -4,6 +4,10 @@ var/datum/explosion_controller/explosions
 	var/list/queued = list()
 
 	proc/queue(atom/source, turf/epicenter, power, brisance = 1)
+		if(epicenter.vistarget)
+			queued += new/datum/explosion(source, epicenter.vistarget, power, brisance)
+		if(epicenter.warptarget)
+			queued += new/datum/explosion(source, epicenter.warptarget, power, brisance)
 		queued += new/datum/explosion(source, epicenter, power, brisance)
 
 	proc/process()

@@ -482,6 +482,12 @@
 /turf/simulated/floor/shiny/white
 	icon_state = "whiteshiny"
 
+/turf/simulated/floor/sanitary
+    icon_state = "freezerfloor"
+
+/turf/simulated/floor/sanitary/white
+    icon_state = "freezerfloor2"
+
 /////////////////////////////////////////
 
 /turf/simulated/floor/specialroom
@@ -805,6 +811,9 @@
 		..()
 		src.dir = pick(cardinal)
 
+/turf/simulated/floor/sandytile
+	icon_state = "sandytile"
+
 /////////////////////////////////////////
 
 /turf/simulated/floor/grass
@@ -819,6 +828,12 @@
 
 /turf/simulated/floor/grass/random/alt
 	icon_state = "grass_eh"
+
+/turf/simulated/floor/darkgrass
+	name = "grass"
+	icon = 'icons/misc/worlds.dmi'
+	icon_state = "grass"
+
 
 /////////////////////////////////////////
 

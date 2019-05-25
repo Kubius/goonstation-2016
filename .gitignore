@@ -1,0 +1,13 @@
+
+*.txt
+maps/fart.dmm
+maps/fart2.dmm
+maps/z3.dmm
+*.rsc
+*.int
+*.dmb
+goonstation.int
+*.sav
+*.log
+data/job_full.ban
+config/admins.txt

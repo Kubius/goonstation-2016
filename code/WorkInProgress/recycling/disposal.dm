@@ -3,6 +3,15 @@
 // contents will be items flushed by the disposal
 // this allows the gas flushed to be tracked
 
+#define PIPEC_MAIL "#8dc2f4"
+#define PIPEC_BRIG "#ff6666"
+#define PIPEC_EJECTION "#f2a673"
+#define PIPEC_MORGUE "#696969"
+#define PIPEC_FOOD "#fbed92"
+#define PIPEC_PRODUCE "#b2ff4f"
+#define PIPEC_TRANSPORT "#ffbef6"
+#define PIPEC_MINERAL "#a5fffc"
+
 /obj/disposalholder
 	invisibility = 101
 	var/datum/gas_mixture/gas = null	// gas used to flush, will appear at exit point
@@ -405,7 +414,6 @@
 
 		qdel(src)
 
-// a straight or bent segment
 /obj/disposalpipe/segment
 	icon_state = "pipe-s"
 
@@ -427,6 +435,8 @@
 
 	mail
 		name = "mail pipe"
+		desc = "An underfloor mail pipe."
+		color = PIPEC_MAIL
 
 		horizontal
 			dir = EAST
@@ -443,6 +453,40 @@
 				dir = SOUTH
 			west
 				dir = WEST
+	brig
+		name = "brig pipe"
+		desc = "An underfloor brig pipe."
+		color = PIPEC_BRIG
+
+	ejection
+		name = "ejection pipe"
+		desc = "An underfloor ejection pipe."
+		color = PIPEC_EJECTION
+
+	morgue
+		name = "morgue pipe"
+		desc = "An underfloor morgue pipe."
+		color = PIPEC_MORGUE
+
+	food
+		name = "food pipe"
+		desc = "An underfloor food pipe."
+		color = PIPEC_FOOD
+
+	produce
+		name = "produce pipe"
+		desc = "An underfloor produce pipe."
+		color = PIPEC_PRODUCE
+
+	transport
+		name = "transport pipe"
+		desc = "An underfloor transport pipe."
+		color = PIPEC_TRANSPORT
+
+	mineral
+		name = "mineral pipe"
+		desc = "An underfloor mineral pipe."
+		color = PIPEC_MINERAL
 
 	New()
 		..()
@@ -453,6 +497,7 @@
 
 		update()
 		return
+
 
 //a three-way junction with dir being the dominant direction
 /obj/disposalpipe/junction
