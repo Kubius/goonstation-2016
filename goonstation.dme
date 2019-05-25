@@ -1066,6 +1066,7 @@ var/datum/preMapLoad/preMapLoad = new
 #include "code\WorkInProgress\customcritter.dm"
 #include "code\WorkInProgress\DrMelonsStuff.dm"
 #include "code\WorkInProgress\Electronics.dm"
+#include "code\WorkInProgress\EmergencyPodFab.dm"
 #include "code\WorkInProgress\evilderelict.dm"
 #include "code\WorkInProgress\explosion_particles.dm"
 #include "code\WorkInProgress\Fitness.dm"
