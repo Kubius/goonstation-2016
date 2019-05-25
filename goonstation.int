@@ -2,11 +2,11 @@
 /*
 MAP_ZOOM: 1.000
 LAST_COMPILE_TIME: 1558746375
-DIR: code code\chui\example code\datums\buildmodes code\datums\buildmodes\adventure code\datums\buildmodes\adventure\elements code\datums\chemistry code\datums\chemistry\tools code\datums\critter_mobs\health code\datums\gamemodes code\datums\genetics code\obj code\WorkInProgress maps 
+DIR: code code\chui\example code\datums\buildmodes code\datums\buildmodes\adventure code\datums\buildmodes\adventure\elements code\datums\chemistry code\datums\chemistry\tools code\datums\critter_mobs\health code\datums\gamemodes code\datums\genetics code\obj maps 
 AUTO_FILE_DIR: OFF
 MAP_ICON_TYPE: 0
 LAST_COMPILE_VERSION: 512.1463
-WINDOW: code\obj\mining.dm;maps\orpheus_axiom.dmm
+WINDOW: code\obj\mining.dm;maps\orpheus_axiom.dmm;code\obj\decal.dm
 FILE: maps\orpheus_axiom.dmm
 */
 // END_INTERNALS
