@@ -579,27 +579,9 @@ Note: Add new traitor items to syndicate_buylist.dm, not here.
 
 	New()
 		..()
-		src.spells += new /datum/SWFuplinkspell/soulguard(src)
-		src.spells += new /datum/SWFuplinkspell/staffofcthulhu(src)
-		src.spells += new /datum/SWFuplinkspell/fireball(src)
-		src.spells += new /datum/SWFuplinkspell/shockingtouch(src)
-		src.spells += new /datum/SWFuplinkspell/iceburst(src)
-		src.spells += new /datum/SWFuplinkspell/blind(src)
-		src.spells += new /datum/SWFuplinkspell/clownsrevenge(src)
-		src.spells += new /datum/SWFuplinkspell/rathensecret(src)
-		src.spells += new /datum/SWFuplinkspell/forcewall(src)
-		src.spells += new /datum/SWFuplinkspell/blink(src)
-		src.spells += new /datum/SWFuplinkspell/teleport(src)
-		src.spells += new /datum/SWFuplinkspell/warp(src)
-		src.spells += new /datum/SWFuplinkspell/spellshield(src)
-		src.spells += new /datum/SWFuplinkspell/doppelganger(src)
-		src.spells += new /datum/SWFuplinkspell/knock(src)
-		src.spells += new /datum/SWFuplinkspell/empower(src)
-		src.spells += new /datum/SWFuplinkspell/summongolem(src)
-		src.spells += new /datum/SWFuplinkspell/animatedead(src)
-		src.spells += new /datum/SWFuplinkspell/pandemonium(src)
-		//src.spells += new /datum/SWFuplinkspell/shockwave(src)
-		src.spells += new /datum/SWFuplinkspell/bull(src)
+		//Kubius spellbook upgrade: autonomous compendium of SWF uplink datums
+		for(var/D in (typesof(/datum/SWFuplinkspell) - /datum/SWFuplinkspell))
+			src.spells += new D(src) //haha funny D
 
 /datum/SWFuplinkspell
 	var/name = "Spell"
@@ -657,14 +639,14 @@ Note: Add new traitor items to syndicate_buylist.dm, not here.
 	desc = "Records your movement for 4 seconds, after which a massive bull charges along the recorded path, smacking anyone unfortunate to get in its way (excluding yourself) and dealing a significant amount of brute damage in the process. Watch your head for loose items, they are thrown around too."
 	cooldown = 15
 	assoc_spell = /datum/targetable/spell/bullcharge
-
+/*
 /datum/SWFuplinkspell/shockwave
 	name = "Shockwave"
 	eqtype = "Offensive"
 	desc = "This spell will violently throw back any nearby objects or people.<br>Cooldown:"
 	cooldown = 40
 	assoc_spell = /datum/targetable/spell/shockwave
-
+*/
 /datum/SWFuplinkspell/fireball
 	name = "Fireball"
 	eqtype = "Offensive"
