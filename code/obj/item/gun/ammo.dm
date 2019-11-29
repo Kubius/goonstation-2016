@@ -49,6 +49,7 @@
 	g_amt = 0
 	var/amount_left = 0.0
 	var/max_amount = 1000
+	var/unusualCell
 	ammo_type = new/datum/projectile/bullet
 	module_research = list("weapons" = 2, "miniaturization" = 5)
 	module_research_type = /obj/item/ammo/bullets
@@ -519,7 +520,7 @@
 		return
 
 	update_icon()
-		if (src.artifact) return
+		if (src.artifact || src.unusualCell) return
 		overlays = null
 		var/ratio = src.charge / src.max_charge
 		ratio = round(ratio, 0.20) * 100
@@ -541,6 +542,7 @@
 			boutput(usr, text("You have no idea what this thing is!"))
 			return
 		..()
+		if (src.unusualCell) return
 		boutput(usr, "There are [src.charge]/[src.max_charge] PU left!")
 		return
 
