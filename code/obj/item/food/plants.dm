@@ -670,6 +670,21 @@
 				user.visible_message("[user] chops up [src].", "You chop up [src].")
 				new /obj/item/reagent_containers/food/snacks/ingredient/chips(get_turf(src))
 				qdel (src)
+		if (istype(W, /obj/item/cable_coil)) //kubius potato battery: creation operation
+			if (src.icon_state == "potato")
+				user.visible_message("[user] sticks some wire into [src].", "You stick some wire into [src], creating a makeshift power cell.")
+				var/datum/plantgenes/DNA = src.plantgenes
+				new /obj/item/cell/potato(get_turf(src),DNA.potency,DNA.endurance)
+				W:amount -= 1
+				W:updateicon()
+				qdel (src)
+			else if (src.icon_state == "potato-peeled")
+				user.visible_message("[user] sticks some wire into [src].", "You stick some wire into [src], creating a makeshift battery.")
+				var/datum/plantgenes/DNA = src.plantgenes
+				new /obj/item/ammo/power_cell/potato(get_turf(src),DNA.potency)
+				W:amount -= 1
+				W:updateicon()
+				qdel (src)
 		else ..()
 
 	heal(var/mob/M)
