@@ -19,6 +19,7 @@
 	var/mob/rigger = null // mob responsible for the explosion
 	var/genrate = 0		// how much power the cell generates by itself per process tick
 	var/specialicon = 0	// used for autoprocess shit
+	var/unusualCell
 	stamina_damage = 10
 	stamina_cost = 10
 	stamina_crit_chance = 10
@@ -143,7 +144,7 @@
 /obj/item/cell/examine()
 	set src in view(1)
 	set category = "Local"
-	if (src.artifact)
+	if (src.artifact || src.unusualCell)
 		..()
 		return
 	if(usr && !usr.stat)
