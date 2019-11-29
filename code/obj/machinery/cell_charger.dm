@@ -15,6 +15,9 @@
 		return
 
 	if(istype(W, /obj/item/cell))
+		if(W.unusualCell)
+			boutput(user, "The charger is incompatible with the cell.")
+			return
 		if(charging)
 			boutput(user, "There is already a cell in the charger.")
 			return
